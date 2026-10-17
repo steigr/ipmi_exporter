@@ -159,6 +159,11 @@ func (c IPMINativeCollector) Collect(_ freeipmi.Result, ch chan<- prometheus.Met
 	// 	return 0, err
 	// }
 	for _, data := range res {
+		// Like in FreeIPMI mode, don't report sensors without a valid reading.
+		if data.Status() == "N/A" {
+			continue
+		}
+
 		var state float64
 
 		switch data.Status() {
@@ -170,8 +175,6 @@ func (c IPMINativeCollector) Collect(_ freeipmi.Result, ch chan<- prometheus.Met
 			state = 2
 		case "lnr", "unr": // lower/upper non-recoverable
 			state = 3 // TODO this is new
-		case "N/A":
-			state = math.NaN()
 		default:
 			// TODO handle threshold sensor data
 			logger.Error(

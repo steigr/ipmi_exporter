@@ -46,6 +46,9 @@ FreeIPMI-based collectors:
     this to "OPERATOR" by default, but go-ipmi does not)
 * **ipmi collector:** sensors can now have a `state` value of `3`
   ("non-recoverable") - a value that FreeIPMI does not provide
+* **ipmi collector:** sensors that the BMC lists but cannot read (e.g. unpopulated
+  fan headers or PSU telemetry) are no longer exported with a `NaN` state and
+  value, but omitted, as in FreeIPMI mode
 * **chassis collector:** in the native collector, the representation changed
   from `"Current drive fault state (1=false, 0=true)."` to `"Current drive
   fault state (1=true, 0=false)."`, simply because the current representation

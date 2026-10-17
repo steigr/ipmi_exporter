@@ -1,5 +1,7 @@
 ## next
 
+* Omit sensors without a reading in native IPMI collector
+
 ## 1.10.1 / 2025-07-11
 
 * Fix panic in native BMC collector (#267)
